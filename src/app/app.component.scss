@@ -1,0 +1,14 @@
+.app-container{
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    app-video-elements{
+        flex: 1 1 auto;
+    }
+    app-video-controls{
+        flex: 0;
+    }
+}

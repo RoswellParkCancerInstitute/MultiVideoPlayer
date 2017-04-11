@@ -1,0 +1,15 @@
+<div class="video-elements-wrapper">
+  <div class="video-elements-container" fxLayout="row" fxLayoutWrap (drop)="onDrop($event)" (ondrop)="onDrop($event)" (dragenter)="onDragEnter($event)"
+    (dragleave)="onDragLeave($event)" (dragover)="onDragOver($event)">
+    <md-grid-list [cols]="grid.cols" gutterSize="0" rowHeight="fit">
+      <div class="drag-drop-message" *ngIf="(videos | async )?.length === 0 ">
+        <h3>Drop Videos Here</h3>
+        <p>Supported formats MP4, MPEG, WebM</p>
+      </div>
+      <md-grid-tile *ngFor="let video of (videos | async ); let i=index;">
+        <app-video-element [videoData]="video" [playerStatus]="playerStatus" (onDuration)="setDuration($event,i)" (onLoad)="onVideoLoaded($event,i)"
+          (onTimeUpdate)="onTimeUpdate($event,i)" (onClear)="clearVideo(i)"></app-video-element>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>

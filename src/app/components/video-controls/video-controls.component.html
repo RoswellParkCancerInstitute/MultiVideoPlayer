@@ -1,0 +1,51 @@
+<div class="video-controls-container">
+
+  <md-toolbar color="primary">
+    <div class="controls controls-left">
+      <app-video-time-display *ngIf="(isPlayerEnabled | async)" [currentTime]="currentTime" [duration]="duration" [format]="s"></app-video-time-display>
+    </div> 
+    <div class="controls controls-middle">
+      <button md-icon-button (click)="seekTo(0)" [disabled]="!(isPlayerEnabled | async)">
+        <md-icon>stop</md-icon>
+    </button>
+      <button md-fab color="accent" (click)="togglePlayPause()" [disabled]="!(isPlayerEnabled | async)">
+        <md-icon>{{isPlaying ? 'pause' : 'play_arrow'}}</md-icon>
+    </button>
+      <button md-icon-button mdTooltip="Seek step" mdTooltipPosition="below" [mdMenuTriggerFor]="seekStepMenu">{{preferences?.seekStep}}s</button>
+    </div>
+
+    <div class="controls controls-right">
+      <div class="volume-container">
+        <button md-icon-button class="volume-off" (click)="setVolume(0)"><md-icon>volume_off</md-icon></button>
+        <md-slider class="volume-slider" (change)="setVolume($event.value)" [value]="preferences?.volume"></md-slider>
+        <button class="volume-up" md-icon-button (click)="setVolume(100)"><md-icon>volume_up</md-icon></button>
+        <button class="volume-status" md-icon-button><md-icon>{{preferences?.volume === 0 ? 'volume_off' : (preferences?.volume === 100?'volume_up':'volume_down')}}</md-icon></button>
+      </div>
+
+      <button md-icon-button mdTooltip="Playback Speed" mdTooltipPosition="below" [mdMenuTriggerFor]="playbackSpeedMenu">
+        {{preferences?.playbackSpeed}}x
+    </button>
+      <button md-icon-button [mdMenuTriggerFor]="appMenu">
+        <md-icon>more_vert</md-icon>
+    </button>
+    </div>
+    <md-slider class="progress-slider" color="accent" [value]="currentTime" (change)="seekTo($event.value)" [min]="0"
+      [max]="duration" [disabled]="!(isPlayerEnabled | async)" thumbLabel tickInterval="1"></md-slider>
+  </md-toolbar>
+
+</div>
+
+<md-menu #appMenu="mdMenu">
+  <button md-menu-item color="warn" (click)="clearAllVideos()"><md-icon color="warn">clear_all</md-icon>Clear All Videos</button>
+  <button md-menu-item (click)="showDialog('preferences')"><md-icon>settings</md-icon>Preferences</button>
+  <button md-menu-item (click)="showDialog('keyboardShortcuts')"><md-icon>keyboard</md-icon>Keyboard Shortcuts</button>
+</md-menu>
+
+<md-menu #playbackSpeedMenu="mdMenu">
+  <button md-menu-item *ngFor="let speed of playbackSpeeds" (click)="setPlaybackSpeed(speed)">{{speed}}x</button>
+</md-menu>
+
+<md-menu #seekStepMenu="mdMenu">
+  <button md-menu-item disabled>Use &larr; &rarr; keys to seek</button>
+  <button md-menu-item *ngFor="let seekStep of seekSteps" (click)="setSeekStep(seekStep)">{{seekStep}}s Steps</button>
+</md-menu>

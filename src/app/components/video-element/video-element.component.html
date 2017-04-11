@@ -1,0 +1,10 @@
+<div class="video-element">
+<video #video>
+    <source *ngFor="let source of videoData.sources" [type]="source.type" [src]="source.src"> 
+    Your browser does not support the video tag. Please download Chrome or Firefox.
+</video>
+<div class="video-buttons">
+<button md-icon-button color="accent" *ngIf="volume===0"><md-icon>volume_mute</md-icon></button>
+<button md-icon-button color="accent" *ngIf="volume===100"><md-icon>volume_up</md-icon></button>
+</div>
+</div>

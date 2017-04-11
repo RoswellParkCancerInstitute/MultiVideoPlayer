@@ -1,0 +1,49 @@
+.video-elements-wrapper {
+  position: relative;
+  height: calc(100vh - 42px);
+  width: 100%;
+  overflow: auto;
+}
+
+.video-elements-container {
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  .video-container {
+    // height: calc(50% - 21px);
+    width: 50%; // flex-basis: calc(42% + 0px);
+    flex-basis: fill; // box-sizing: border-box;
+    // justify-content: center;
+    // flex-direction: column;
+  }
+}
+
+md-grid-list {
+  height: 100%;
+  display: flex;
+  flex: 1;
+}
+
+video {
+  display: flex;
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.drag-drop-message {
+  color: #f5f5f5;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  top: calc(50% - 50px);
+  left: calc(50% - 150px);
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  text-align: center;
+  p{
+    font-size: 12px;
+  }
+}
