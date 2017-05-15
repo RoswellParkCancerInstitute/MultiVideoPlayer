@@ -24,10 +24,14 @@ export class PreferencesService {
   preferences = new BehaviorSubject<IPreferences>(DEFAULT_PREFS);
   constructor() {
     const prefs = this.preferences.getValue();
+
+    // get all prefs from the localstorage
     for (const key in DEFAULT_PREFS) {
       if (key) {
-        if (this.getPrefFromStorage(key) !== null) {
+        if (this.getPrefFromStorage(key)) { // Get the value stored in the local preferences
           prefs[key] = this.getPrefFromStorage(key);
+        } else { // Set the value in the local preferences
+          this.setPrefInStorage(key, DEFAULT_PREFS[key]);
         }
       }
     }
@@ -48,7 +52,7 @@ export class PreferencesService {
     localStorage.setItem(`${this.prefix}:${key}`, value);
   }
   getPrefFromStorage(key: string) {
-    let value: any = localStorage.getItem(`${this.prefix}:${key}`);
+    let value: any = localStorage.getItem(`${this.prefix}:${key}`) || null;
 
     // Convert to correct format from string
     switch (key) {
