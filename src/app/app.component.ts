@@ -17,20 +17,23 @@ export class AppComponent {
         this.sms.togglePlayPause();
         break;
       case 37: // Left Arrow
+      case 65: // a
         this.sms.seekLeft();
         break;
       case 38: // Up Arrow
+      case 87: // w
         this.sms.increaseVolume();
         break;
       case 39: // Right Arrow
+      case 68: // a
         this.sms.seekRight();
         break;
       case 40: // Down Arrow
+      case 83: // s
         this.sms.decreaseVolume();
         break;
       case 67: // letter: c
-        break;
-      case 77: // letter: m
+        this.sms.copyToClipboard();
         break;
     }
   }

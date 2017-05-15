@@ -1,6 +1,0 @@
-<div class="time-wrapper">
-  <app-copy-to-clipboard-button [value]="currentTime | secondsToTime | date:'H:mm:ss'"></app-copy-to-clipboard-button>
-    <div #timeDisplayRef>{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</div>
-    <div>{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</div>
-</div>
-

@@ -2,8 +2,12 @@
 
   <md-toolbar color="primary">
     <div class="controls controls-left">
-      <app-video-time-display *ngIf="(isPlayerEnabled | async)" [currentTime]="currentTime" [duration]="duration" [format]="s"></app-video-time-display>
-    </div> 
+      <div *ngIf="(isPlayerEnabled | async)">
+      <button  md-icon-button mdTooltip="Copy Time" mdTooltipPosition="below" (click)="copyToClipboard()"><md-icon>content_copy</md-icon></button>
+      <div *ngIf="timeFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</div>
+      <div *ngIf="timeFormat==='seconds'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</div>
+      </div>
+    </div>
     <div class="controls controls-middle">
       <button md-icon-button (click)="seekTo(0)" [disabled]="!(isPlayerEnabled | async)">
         <md-icon>stop</md-icon>
@@ -29,8 +33,8 @@
         <md-icon>more_vert</md-icon>
     </button>
     </div>
-    <md-slider class="progress-slider" color="accent" [value]="currentTime" (change)="seekTo($event.value)" [min]="0"
-      [max]="duration" [disabled]="!(isPlayerEnabled | async)" thumbLabel tickInterval="1"></md-slider>
+    <md-slider class="progress-slider" color="accent" [value]="currentTime" (change)="seekTo($event.value)" [min]="0" [max]="duration"
+      [disabled]="!(isPlayerEnabled | async)" thumbLabel tickInterval="1"></md-slider>
   </md-toolbar>
 
 </div>

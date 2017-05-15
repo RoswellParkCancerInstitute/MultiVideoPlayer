@@ -11,7 +11,7 @@ export class VideoElementComponent implements OnInit, OnChanges {
   @Input('videoData') videoData;
   @Input('playerStatus') playerStatus: Subject<IPlayerStatus>;
   @ViewChild('video') videoRef: ElementRef;
-  videoElement: HTMLVideoElement;
+  
   @Output() onLoad = new EventEmitter<boolean>();
   @Output() onDuration = new EventEmitter<number>();
   @Output() onTimeUpdate = new EventEmitter<number>();
@@ -22,6 +22,9 @@ export class VideoElementComponent implements OnInit, OnChanges {
   isReady = false;
   isPlaying = false;
   isMute = false;
+  videoElement: HTMLVideoElement;
+  volume = 1;
+
   constructor() {
 
   }
@@ -52,6 +55,7 @@ export class VideoElementComponent implements OnInit, OnChanges {
           // we get volume in range [0,100]
           // we need to convert it into range [0,1]
           this.videoElement.volume = event.value / 100;
+          this.volume = this.videoElement.volume;
           break;
         case PLAYER_STATUS.PLAYBACK_SPEED:
           this.videoElement.playbackRate = event.value;

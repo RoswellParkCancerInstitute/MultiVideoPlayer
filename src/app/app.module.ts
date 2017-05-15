@@ -15,11 +15,11 @@ import { PreferencesService } from './services/preferences.service';
 import { VideoElementComponent } from './components/video-element/video-element.component';
 import { SecondsToTimePipe } from './pipes/seconds-to-time.pipe';
 import { RoundOffPipe } from './pipes/round-off.pipe';
-import { VideoTimeDisplayComponent } from './components/video-controls/video-time-display/video-time-display.component';
+// import { VideoTimeDisplayComponent } from './components/video-controls/video-time-display/video-time-display.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PreferencesComponent } from './components/preferences/preferences.component';
 import { KeyboardShortcutsComponent } from './components/keyboard-shortcuts/keyboard-shortcuts.component';
-import { CopyToClipboardButtonComponent } from './components/copy-to-clipboard-button/copy-to-clipboard-button.component';
+// import { CopyToClipboardButtonComponent } from './components/copy-to-clipboard-button/copy-to-clipboard-button.component';
 
 
 @NgModule({
@@ -30,11 +30,11 @@ import { CopyToClipboardButtonComponent } from './components/copy-to-clipboard-b
     VideoElementComponent,
     SecondsToTimePipe,
     RoundOffPipe,
-    VideoTimeDisplayComponent,
+    // VideoTimeDisplayComponent,
     DialogComponent,
     PreferencesComponent,
     KeyboardShortcutsComponent,
-    CopyToClipboardButtonComponent
+    // CopyToClipboardButtonComponent
   ],
   imports: [
     BrowserModule,

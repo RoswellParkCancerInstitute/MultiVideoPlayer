@@ -83,10 +83,19 @@ export class StateManagerService {
     }
   }
   seekRight() {
-    this.seekTo(this.timeUpdate.getValue() + this.preferencesChanged.getValue().seekStep);
+    const currentTime = this.timeUpdate.getValue();
+    const seekValue = this.preferencesChanged.getValue().seekStep;
+    const newTime = currentTime + seekValue;
+    this.seekTo(newTime);
   }
   seekLeft() {
-    this.seekTo(this.timeUpdate.getValue() - this.preferencesChanged.getValue().seekStep);
+    const currentTime = this.timeUpdate.getValue();
+    const seekValue = this.preferencesChanged.getValue().seekStep;
+    let newTime = currentTime - seekValue;
+    if (newTime < 0) {
+      newTime = 0;
+    }
+    this.seekTo(newTime);
   }
   seekTo(seconds: number): void {
     console.log('Seeking to:', seconds);
@@ -127,6 +136,22 @@ export class StateManagerService {
     this.playerStatus.next({ status: PLAYER_STATUS.PLAYBACK_SPEED, value: speed });
   }
 
+  copyToClipboard() {
+    const body = document.getElementsByTagName('body');
+    const textArea = document.createElement('textarea');
+    document.body.appendChild(textArea);
+    textArea.value = '' + this.timeUpdate.getValue();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      const msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copy command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to cut');
+    }
+    document.body.removeChild(textArea);
+  }
 
   /**
  * Adds the video to the player
