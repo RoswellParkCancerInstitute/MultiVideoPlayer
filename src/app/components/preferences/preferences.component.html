@@ -6,7 +6,28 @@
     <md-icon md-list-icon>keyboard</md-icon>
     <h3 md-line>Enable Keyboard Shortcuts</h3>
     <p md-line>Control the player with the keyboard</p>
-    <md-slide-toggle color="primary"></md-slide-toggle>
+    <md-slide-toggle color="primary" [checked]="prefs.keyboardShortcutsEnabled" (change)="updatePreference('keyboardShortcutsEnabled',$event.checked)"></md-slide-toggle>
+  </md-list-item>
+  <md-list-item>
+    <md-icon md-list-icon>content_copy</md-icon>
+    <h3 md-line>Pause On Copy</h3>
+    <p md-line>Pause the player when you copy time</p>
+    <md-slide-toggle color="primary" [checked]="prefs.pauseOnCopy" (change)="updatePreference('pauseOnCopy',$event.checked)"></md-slide-toggle>
+  </md-list-item>
+  <md-list-item>
+    <md-icon md-list-icon>access_time</md-icon>
+    <h3 md-line>Time Format</h3>
+    <p md-line>Display and copy format</p>
+    <md-button-toggle-group>
+      <md-button-toggle [value]="timeDisplayFormat" *ngFor="let timeDisplayFormat of timeDisplayFormats" [checked]="currentTimeDisplayFormat === timeDisplayFormat" (change)="updatePreference('timeDisplayFormat',$event.value)">
+        {{timeDisplayFormat}}
+      </md-button-toggle>
+    </md-button-toggle-group>
+    <!--<md-select [(ngModel)]="timeFormat" name="food">
+    <md-option *ngFor="let food of timeFormats" [value]="food">
+      {{food}}
+    </md-option>
+  </md-select>-->
   </md-list-item>
   <md-list-item>
     <md-icon md-list-icon>settings</md-icon>

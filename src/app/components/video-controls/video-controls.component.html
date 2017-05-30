@@ -4,8 +4,8 @@
     <div class="controls controls-left">
       <div *ngIf="(isPlayerEnabled | async)">
       <button  md-icon-button mdTooltip="Copy Time" mdTooltipPosition="below" (click)="copyToClipboard()"><md-icon>content_copy</md-icon></button>
-      <div *ngIf="timeFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</div>
-      <div *ngIf="timeFormat==='seconds'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</div>
+      <div *ngIf="preferences.timeDisplayFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</div>
+      <div *ngIf="preferences.timeDisplayFormat==='seconds'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</div>
       </div>
     </div>
     <div class="controls controls-middle">
