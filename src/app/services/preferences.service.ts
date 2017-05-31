@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Http} from '@angular/http';
 import {PREFERENCES, TIME_DISPLAY_FORMATS} from '../utils/constants';
+import {LoggerService} from './logger.service';
+import {SnackbarService} from './snackbar.service';
 
 export interface IPreferences {
   keyboardShortcutsEnabled : boolean;
@@ -26,22 +28,27 @@ export class PreferencesService {
   prefix = 'MultiVideoPlayer';
 
   preferences = new BehaviorSubject < IPreferences > (DEFAULT_PREFS);
-  constructor(private http : Http) {
+  constructor(private http : Http, public logger : LoggerService, public snackbar : SnackbarService) {
     const prefs = this
       .preferences
       .getValue();
     this
       .preferences
       .subscribe(pref => {
-        console.log('Updared Pref:', pref);
+        this
+          .logger
+          .logInfo('Updared Pref:', pref);
       });
     // get all prefs from the localstorage
     for (const key in prefs) {
       if (key) {
         if (this.getPrefFromStorage(key) !== null) { // Get the value stored in the local preferences
           prefs[key] = this.getPrefFromStorage(key);
-        } else { // Set the value in the local preferences
-          console.log('Setting Default for', key);
+        } else {
+          // Set the value in the local preferences
+          this
+            .logger
+            .logInfo('Setting Default for', key);
           this.setPrefInStorage(key, DEFAULT_PREFS[key]);
         }
       }
@@ -60,6 +67,7 @@ export class PreferencesService {
       .preferences
       .next(prefs);
     this.setPrefInStorage(key, '' + value);
+
   }
   getPref(key : string) {
     return this
@@ -69,26 +77,32 @@ export class PreferencesService {
 
   setPrefInStorage(key : string, value : string) {
     localStorage.setItem(`${this.prefix}:${key}`, value);
+    this
+      .snackbar
+      .show('Preferences Updated');
   }
   getPrefFromStorage(key : string) {
     let value : any = localStorage.getItem(`${this.prefix}:${key}`) || null;
-    // Convert to correct format from string
-    switch (key) {
-      case PREFERENCES.keyboardShortcutsEnabled:
-      case PREFERENCES.pauseOnCopy:
-        if (value === 'true') {
-          value = true;
-        } else {
-          value = false;
-        }
-        break;
-      case PREFERENCES.seekStep:
-      case PREFERENCES.volume:
-        value = parseInt(value, 10);
-        break;
-      case PREFERENCES.playbackSpeed:
-        value = parseFloat(value);
-        break;
+
+    // Convert to correct format from string if not null
+    if (value !== null) {
+      switch (key) {
+        case PREFERENCES.keyboardShortcutsEnabled:
+        case PREFERENCES.pauseOnCopy:
+          if (value === 'true') {
+            value = true;
+          } else {
+            value = false;
+          }
+          break;
+        case PREFERENCES.seekStep:
+        case PREFERENCES.volume:
+          value = parseInt(value, 10);
+          break;
+        case PREFERENCES.playbackSpeed:
+          value = parseFloat(value);
+          break;
+      }
     }
     return value;
   }
