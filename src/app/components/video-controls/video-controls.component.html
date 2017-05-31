@@ -3,30 +3,40 @@
   <md-toolbar color="primary">
     <div class="controls controls-left">
       <div class="time-container" *ngIf="(isPlayerEnabled | async)">
-      <button  md-icon-button mdTooltip="Copy Time" mdTooltipPosition="below" (click)="copyToClipboard()"><md-icon>content_copy</md-icon></button>
-      <span *ngIf="preferences.timeDisplayFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</span>
-      <span *ngIf="preferences.timeDisplayFormat==='ss'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</span>
+        <button md-icon-button mdTooltip="Copy Time" mdTooltipPosition="below" (click)="copyToClipboard()"><md-icon>content_copy</md-icon></button>
+        <div *ngIf="preferences.timeDisplayFormat==='H:mm:ss'" class="time-text-container">
+          <span class="time-current-time">{{currentTime | secondsToTime | date:'H:mm:ss'}}</span>
+          <span class="time-seperator">/</span>
+          <span class="time-duration">{{duration | secondsToTime | date:'H:mm:ss'}}</span>
+        </div>
+        <div *ngIf="preferences.timeDisplayFormat==='ss'" class="time-text-container">
+          <span class="time-current-time">{{currentTime | roundOff:1 }}</span>
+          <span class="time-seperator">/</span>
+          <span class="time-duration">{{duration | roundOff:1 }}</span>
+        </div>
+        <!--<span *ngIf="preferences.timeDisplayFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</span>
+        <span *ngIf="preferences.timeDisplayFormat==='ss'">/ </span>-->
       </div>
     </div>
     <div class="controls controls-middle">
-      <button md-icon-button (click)="seekTo(0)" [disabled]="!(isPlayerEnabled | async)">
+      <button md-icon-button class="controls-stop" (click)="stop()" [disabled]="!(isPlayerEnabled | async)">
         <md-icon>stop</md-icon>
     </button>
-      <button md-fab color="accent" (click)="togglePlayPause()" [disabled]="!(isPlayerEnabled | async)">
+      <button md-fab color="accent" class="controls-play-pause" (click)="togglePlayPause()" [disabled]="!(isPlayerEnabled | async)">
         <md-icon>{{isPlaying ? 'pause' : 'play_arrow'}}</md-icon>
     </button>
-      <button md-icon-button mdTooltip="Seek step" mdTooltipPosition="below" [mdMenuTriggerFor]="seekStepMenu">{{preferences?.seekStep}}s</button>
+      <button md-icon-button mdTooltip="Seek step" class="controls-seek-step" mdTooltipPosition="below" [mdMenuTriggerFor]="seekStepMenu">{{preferences?.seekStep}}s</button>
     </div>
 
     <div class="controls controls-right">
       <div class="volume-container">
         <button md-icon-button class="volume-off" (click)="setVolume(0)"><md-icon>volume_off</md-icon></button>
-        <md-slider class="volume-slider" (change)="setVolume($event.value)" [value]="preferences?.volume"></md-slider>
+        <md-slider vertical class="volume-slider" (change)="setVolume($event.value)" [value]="preferences?.volume"></md-slider>
         <button class="volume-up" md-icon-button (click)="setVolume(100)"><md-icon>volume_up</md-icon></button>
         <button class="volume-status" md-icon-button><md-icon>{{preferences?.volume === 0 ? 'volume_off' : (preferences?.volume === 100?'volume_up':'volume_down')}}</md-icon></button>
       </div>
 
-      <button md-icon-button mdTooltip="Playback Speed" mdTooltipPosition="below" [mdMenuTriggerFor]="playbackSpeedMenu">
+      <button md-icon-button mdTooltip="Playback Speed" class="controls-playback-speed" mdTooltipPosition="below" [mdMenuTriggerFor]="playbackSpeedMenu">
         {{preferences?.playbackSpeed}}x
     </button>
       <button md-icon-button [mdMenuTriggerFor]="appMenu">

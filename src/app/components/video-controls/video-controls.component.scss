@@ -1,7 +1,6 @@
 $font-size: 14px;
 $font-weight: 400;
 $letter-spacing: 1px;
-
 .video-controls-container {
   position: relatve;
   margin-bottom: 2px;
@@ -23,6 +22,17 @@ md-toolbar {
   }
 }
 
+@media screen and (max-width:600px) {
+  .mat-toolbar .mat-toolbar-row {
+    flex-direction: column;
+    height: 200px;
+    background-color: red;
+    .controls {
+      justify-content: center;
+    }
+  }
+}
+
 md-toolbar {
   min-height: 84px;
 }
@@ -35,8 +45,7 @@ md-toolbar {
   // padding-bottom:20px;
   font-size: $font-size;
   font-weight: $font-weight;
-
-  button{
+  button {
     font-size: $font-size;
     font-weight: $font-weight;
     letter-spacing: $letter-spacing;
@@ -64,7 +73,10 @@ md-toolbar {
 
 .controls-left {
   justify-content: flex-start;
-  .time-container{
+  .time-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font-size: $font-size;
     font-weight: $font-weight;
     letter-spacing: $letter-spacing;
@@ -77,30 +89,58 @@ md-toolbar {
   justify-content: flex-end;
 }
 
+.time-text-container {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width:550px) {
+  .controls-stop,
+  .controls-playback-speed,
+  .controls-seek-step {
+    display: none;
+  }
+  .time-text-container {
+    flex-direction: column;
+    .time-seperator {
+      display: none;
+    }
+  }
+}
+
 .volume-container {
+  flex-direction: column-reverse;
+  display: flex; // margin-top: 168px;
+  z-index: 99;
   .volume-slider {
-    min-width: 100px;
+    width: 40px; // setting same width as buttons
   }
   .volume-slider,
   .volume-off,
   .volume-up {
-    opacity: 0;
-    transition: opacity 0s ease-out;
+    display: none;
   }
   .volume-status {
-    display: visible;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
   }
 }
 
 .volume-container:hover {
+  margin-top: 168px;
+  transition: margin-top 0s ease-in;
+  z-index: 100;
   .volume-slider,
   .volume-off,
   .volume-up {
+    display: block;
     opacity: 1;
-    transition: opacity .3s ease-in;
+    transition: display .2s, opacity .2s ease-in;
   }
   .volume-status {
-    display: none; 
-    transition: display 0s ease-out;
+    display: none;
+    opacity: 0;
+    transition: height 0.1s ease-out, opacity 0.1s ease-out;
   }
 }

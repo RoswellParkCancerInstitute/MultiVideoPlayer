@@ -77,4 +77,14 @@ export class VideoElementComponent implements OnInit, OnChanges {
     };
   }
 
+  toggleMute(){
+    if(this.videoElement && this.videoElement.volume > 0){
+      this.videoElement.volume = 0;
+      this.volume = 0;
+    }else{
+      this.videoElement.volume = 1 ;
+      this.volume = 1;
+    }
+  }
+
 }

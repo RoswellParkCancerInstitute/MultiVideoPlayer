@@ -139,6 +139,22 @@ export class StateManagerService {
       .next({status: PLAYER_STATUS.VOLUME, value: volume});
   }
 
+  toggleMute(){
+    // We want to update the player volume to 0 without saving to prefs/localstorage
+    
+    // check volume in prefs. if 0, do nothing
+    // let status = this.playerPlayStatus.;
+    // console.log(status);
+    
+    // already muted, reset colume
+    // if(status)
+    // send  0 volume update
+      // this.playerStatus.next({status: PLAYER_STATUS.VOLUME, value: 0});
+      
+      this.playerStatus.next({status: PLAYER_STATUS.VOLUME, value: 0});
+      
+  }
+
   setPlaybackSpeed(speed : number) {
     console.log('Setting Playback Speed to:', speed);
     this

@@ -60,6 +60,10 @@ export class VideoControlsComponent implements OnInit {
 
   seekTo(value) {
     this.sms.seekTo(value);
+  } 
+  stop(){
+    this.seekTo(0);
+    this.sms.pause();
   }
   clearAllVideos() {
 
