@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "multi-video-player-dev",
+    "prod": "multi-video-player",
+    "dev": "multi-video-player-dev"
+  }
+}
