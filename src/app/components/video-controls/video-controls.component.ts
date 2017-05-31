@@ -70,6 +70,9 @@ export class VideoControlsComponent implements OnInit {
   setSeekStep(value: number) {
     this.preferencesService.setPref('seekStep', value);
   }
+  copyToClipboard(){
+    this.sms.copyToClipboard();
+  }
 
   showDialog(type: string) {
     let dialogRef;
