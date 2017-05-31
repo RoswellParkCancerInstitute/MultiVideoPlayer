@@ -1,3 +1,6 @@
+$font-size: 14px;
+$font-weight: 400;
+$letter-spacing: 0.5px;
 .video-elements-wrapper {
   position: relative;
   height: calc(100vh - 42px);
@@ -36,14 +39,22 @@ video {
 
 .drag-drop-message {
   color: #f5f5f5;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   top: calc(50% - 50px);
   left: calc(50% - 150px);
   position: absolute;
   width: 300px;
   height: 100px;
   text-align: center;
-  p{
-    font-size: 12px;
+  font-size: $font-size + 8;
+  font-weight: $font-weight;
+  letter-spacing: $letter-spacing;
+  -webkit-font-smoothing: antialiased; // fix for blurred font in chrome
+  user-select: none;
+  cursor: default;
+  p {
+    // font-weight: $font-weight;
+    // letter-spacing: $letter-spacing;
+    font-size: $font-size;
   }
 }
