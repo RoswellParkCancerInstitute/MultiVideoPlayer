@@ -1,3 +1,7 @@
+$font-size: 14px;
+$font-weight: 400;
+$letter-spacing: 1px;
+
 .video-controls-container {
   position: relatve;
   margin-bottom: 2px;
@@ -29,6 +33,14 @@ md-toolbar {
 
 .controls {
   // padding-bottom:20px;
+  font-size: $font-size;
+  font-weight: $font-weight;
+
+  button{
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: $letter-spacing;
+  }
 }
 
 .controls-middle {
@@ -52,17 +64,22 @@ md-toolbar {
 
 .controls-left {
   justify-content: flex-start;
+  .time-container{
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: $letter-spacing;
+  }
 }
 
 .controls-right {
-  font-size: 16px;
+  font-size: $font-size;
   align-self: center;
   justify-content: flex-end;
 }
 
 .volume-container {
   .volume-slider {
-    min-width: 120px;
+    min-width: 100px;
   }
   .volume-slider,
   .volume-off,
