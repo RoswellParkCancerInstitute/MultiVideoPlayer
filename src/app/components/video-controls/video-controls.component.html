@@ -2,10 +2,10 @@
 
   <md-toolbar color="primary">
     <div class="controls controls-left">
-      <div *ngIf="(isPlayerEnabled | async)">
+      <div class="time-container" *ngIf="(isPlayerEnabled | async)">
       <button  md-icon-button mdTooltip="Copy Time" mdTooltipPosition="below" (click)="copyToClipboard()"><md-icon>content_copy</md-icon></button>
-      <div *ngIf="preferences.timeDisplayFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</div>
-      <div *ngIf="preferences.timeDisplayFormat==='seconds'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</div>
+      <span *ngIf="preferences.timeDisplayFormat==='H:mm:ss'">{{currentTime | secondsToTime | date:'H:mm:ss'}} / {{duration | secondsToTime | date:'H:mm:ss'}}</span>
+      <span *ngIf="preferences.timeDisplayFormat==='ss'">{{currentTime | roundOff:1 }} / {{duration | roundOff:1 }}</span>
       </div>
     </div>
     <div class="controls controls-middle">
